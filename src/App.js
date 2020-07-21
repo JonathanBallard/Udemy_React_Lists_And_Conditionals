@@ -33,9 +33,9 @@ class App extends Component {
 
     deleteHandler = (index) => {
         const newArr = [...this.state.inputArr];
-        newArr.splice(index, 0);
+        newArr.splice(index, 1);
         this.setState({
-            inputArr: [...newArr],
+            inputArr: newArr,
             Chars:(
                 <div className="characters">
                     {this.state.inputArr.map((char,index) => {
