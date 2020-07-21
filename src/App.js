@@ -7,29 +7,47 @@ class App extends Component {
 
     constructor(props){
         super(props);
-        this.state = {length:0, input:'', Chars:''};
+        this.state = {length:'', input:'', Chars:'', inputArr:[]};
     }
 
     onChangeHandler = (e) => {
+
         const charArr = e.target.value.split('');
+
         this.setState({
             inputArr:e.target.value.split(''),
             length:e.target.value.length,
             Chars:(
                 <div className="characters">
-                    {charArr.map((char,index) => {
+                    {this.state.inputArr.map((char,index) => {
                         return <CharComponent
-                            char={charArr[index]}
-                        >{char}</CharComponent>
+                            char={this.state.inputArr[index]}
+                            click={() => this.deleteHandler(index)}
+                        ></CharComponent>
                     })}
                 </div>
             )
         });
         
-
     }
 
-    // { this.state.inputArr.map( char => { return <CharComponent chr={char}></CharComponent> }) }
+    deleteHandler = (index) => {
+        const newArr = [...this.state.inputArr];
+        newArr.splice(index, 0);
+        this.setState({
+            inputArr: [...newArr],
+            Chars:(
+                <div className="characters">
+                    {this.state.inputArr.map((char,index) => {
+                        return <CharComponent
+                            char={this.state.inputArr[index]}
+                            click={() => this.deleteHandler(index)}
+                        ></CharComponent>
+                    })}
+                </div>
+            )
+        })
+    }
 
   render() {
 
@@ -51,7 +69,8 @@ class App extends Component {
             <ValidationComponent length={ this.state.length }>Validation:</ValidationComponent>
             
             <div>{this.state.Chars}</div>
-            
+            <h6>{ this.state.inputArr }</h6>
+            <h6>{ this.state.inputArr.length }</h6>
         </div>
 
       </div>
