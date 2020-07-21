@@ -6,6 +6,7 @@ const ValidationComponent = props => {
         return (
             
             <div className='validation'>
+                <p>{props.children}</p>
                 <h4>Text too short...</h4>
             </div>
         )
@@ -13,6 +14,7 @@ const ValidationComponent = props => {
     else {
         return (
             <div className='validation'>
+                <p>{props.children}</p>
                 <h4>Text okay!</h4>
             </div>
         )

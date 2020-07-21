@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
 import './App.css';
 import ValidationComponent from './components/ValidationComponent/ValidationComponent';
+import CharComponent from './components/CharComponent/CharComponent';
 
 class App extends Component {
 
     constructor(props){
         super(props);
-        this.state = {length:0};
+        this.state = {length:0, input:'', Chars:''};
     }
 
     onChangeHandler = (e) => {
-        let len = e.target.value.length;
+        const charArr = e.target.value.split('');
         this.setState({
-            length:len,
+            inputArr:e.target.value.split(''),
+            length:e.target.value.length,
+            Chars:(
+                <div className="characters">
+                    {charArr.map((char,index) => {
+                        return <CharComponent
+                            char={charArr[index]}
+                        >{char}</CharComponent>
+                    })}
+                </div>
+            )
         });
+        
+
     }
 
+    // { this.state.inputArr.map( char => { return <CharComponent chr={char}></CharComponent> }) }
 
   render() {
-
-
 
     return (
       <div className="App">
@@ -34,10 +46,11 @@ class App extends Component {
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
 
         <div className="input">
-            <input type = 'text' onChange = { this.onChangeHandler }></input>
-            <p className='inputLength'>{ this.state.length }</p>
+            <input type = 'text' placeholder="type here" onChange = { this.onChangeHandler }></input>
+            <p className='inputLength'>Number of Characters: { this.state.length }</p>
             <ValidationComponent length={ this.state.length }>Validation:</ValidationComponent>
-
+            
+            <div>{this.state.Chars}</div>
             
         </div>
 
