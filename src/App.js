@@ -7,7 +7,7 @@ class App extends Component {
 
     constructor(props){
         super(props);
-        this.state = {length:'', input:'', Chars:'', inputArr:[]};
+        this.state = {length:'', input:'', Chars:'', inputArr:[], val:''};
     }
 
     onChangeHandler = (e) => {
@@ -15,6 +15,7 @@ class App extends Component {
         const charArr = e.target.value.split('');
 
         this.setState({
+            val: e.target.value,
             inputArr:e.target.value.split(''),
             length:e.target.value.length,
             Chars:(
@@ -45,7 +46,8 @@ class App extends Component {
                         ></CharComponent>
                     })}
                 </div>
-            )
+            ),
+            val: newArr.join(''),
         })
     }
 
@@ -64,11 +66,11 @@ class App extends Component {
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
 
         <div className="input">
-            <input type = 'text' placeholder="type here" onChange = { this.onChangeHandler }></input>
+            <input type = 'text' placeholder="type here" value={this.state.val} onChange = { this.onChangeHandler }></input>
             <p className='inputLength'>Number of Characters: { this.state.length }</p>
             <ValidationComponent length={ this.state.length }>Validation:</ValidationComponent>
             
-            <div>{this.state.Chars}</div>
+            <div className="Chars">{this.state.Chars}</div>
             <h6>{ this.state.inputArr }</h6>
             <h6>{ this.state.inputArr.length }</h6>
         </div>
