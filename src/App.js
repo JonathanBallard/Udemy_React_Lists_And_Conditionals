@@ -17,12 +17,11 @@ class App extends Component {
         this.setState({
             val: e.target.value,
             inputArr:e.target.value.split(''),
-            length:e.target.value.length,
             Chars:(
                 <div className="characters">
-                    {this.state.inputArr.map((char,index) => {
+                    {e.target.value.split('').map((char,index) => {
                         return <CharComponent
-                            char={this.state.inputArr[index]}
+                            char={e.target.value.split('')[index]}
                             click={() => this.deleteHandler(index)}
                         ></CharComponent>
                     })}
@@ -33,16 +32,16 @@ class App extends Component {
     }
 
     deleteHandler = (index) => {
-        const newArr = [...this.state.inputArr];
+        const newArr = this.state.val.split('');
         newArr.splice(index, 1);
         this.setState({
-            inputArr: newArr,
             Chars:(
                 <div className="characters">
-                    {this.state.inputArr.map((char,index) => {
+                    {newArr.map((char,index) => {
                         return <CharComponent
-                            char={this.state.inputArr[index]}
+                            char={char}
                             click={() => this.deleteHandler(index)}
+                            key={ index }
                         ></CharComponent>
                     })}
                 </div>
@@ -66,13 +65,13 @@ class App extends Component {
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
 
         <div className="input">
-            <input type = 'text' placeholder="type here" value={this.state.val} onChange = { this.onChangeHandler }></input>
-            <p className='inputLength'>Number of Characters: { this.state.length }</p>
-            <ValidationComponent length={ this.state.length }>Validation:</ValidationComponent>
+            <input type = 'text' placeholder="type here" value={this.state.val} onChange = { this.onChangeHandler } />
+            <p className='inputLength'>Number of Characters: { this.state.val.length }</p>
+            <ValidationComponent length={ this.state.val.length }>Validation:</ValidationComponent>
             
             <div className="Chars">{this.state.Chars}</div>
-            <h6>{ this.state.inputArr }</h6>
-            <h6>{ this.state.inputArr.length }</h6>
+            <h6>{ this.state.val }</h6>
+            <h6>{ this.state.val.length }</h6>
         </div>
 
       </div>
